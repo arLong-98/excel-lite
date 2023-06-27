@@ -1,0 +1,160 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.page-actions-container {
+  /* rem - root-em it dictates size reltative to the font size of the root element */
+  height: 3rem;
+  background-color: #57cc99;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.page-action {
+  padding: 0.5rem;
+}
+
+.cell-props-actions-container {
+  height: 3rem;
+  background-color: azure;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.5rem;
+}
+
+.font-family-prop,
+.font-size-prop {
+  padding: 0.2rem 0.4rem;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+}
+
+.formula-actions-container {
+  height: 3rem;
+  background-color: antiquewhite;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.formula-actions-container input {
+  outline: none;
+  border-radius: 8px;
+  border: none;
+  padding: 5px 10px;
+}
+
+.cell-address-input {
+  min-width: 50px;
+  max-width: 100px;
+  text-align: center;
+}
+
+.formula-bar-container {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.formula-bar-container > input {
+  flex-grow: 1;
+}
+
+.sheet-actions-container {
+  height: 3rem;
+  background-color: darkgray;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.sheets-folder-container {
+  display: inline-block;
+  height: 2.5rem;
+  background-color: azure;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 0.5rem;
+}
+
+.sheet-folder {
+  text-align: center;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.grid-container {
+  height: calc(100vh - 3rem - 3rem - 3rem - 3rem);
+  position: relative;
+  overflow: scroll;
+}
+
+.top-left-dummy-box {
+  height: 2rem;
+  width: 2rem;
+  background-color: darkgrey;
+  position: fixed;
+  z-index: 5;
+}
+
+.address-col-container {
+  position: sticky;
+  top: 2rem;
+  left: 0;
+  z-index: 3;
+  width: 2rem;
+}
+
+.address-row-container {
+  display: flex;
+  background-color: #57cc99;
+  position: sticky;
+  top: 0;
+  left: 2rem;
+}
+
+.address-row {
+  width: 8rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.address-col {
+  height: 2rem;
+  width: 2rem;
+  text-align: center;
+  border: 1px solid #dfe4ea;
+  background-color: gray;
+}
+
+.cells-container {
+  position: absolute;
+  top: 0rem;
+  left: 2rem;
+  background-color: white;
+}
+
+.cell-row-container {
+  display: flex;
+}
+
+.cell {
+  border: 1px solid black;
+  width: 8rem;
+  height: 2rem;
+}
