@@ -1,0 +1,4 @@
+- create three basic files namely index.html, style.css and script.js
+- link stylesheets and script file inside index.html
+- Implement a ui containing all the icons, action buttons, grid interface
+- Implement a feature that allows us to see the address of the clicked cell.
