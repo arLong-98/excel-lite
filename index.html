@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <title>Excel clone</title>
+    <title>Excel lite</title>
   </head>
   <body>
     <div class="page-actions-container">
@@ -25,6 +25,7 @@
       <span class="material-icons"> content_cut </span>
       <span class="material-icons"> content_paste </span>
       <select class="font-family-prop">
+        <option>Select a font</option>
         <option value="monospace">Monospace</option>
         <option value="sans-serif">Sans serif</option>
         <option value="fantasy">Fantasy</option>
@@ -32,16 +33,28 @@
       </select>
       <select class="font-size-prop">
         <option value="14">14</option>
-        <option value="16">16</option>
+        <option selected value="16">16</option>
         <option value="18">18</option>
         <option value="20">20</option>
       </select>
-      <span class="material-icons"> format_bold </span>
-      <span class="material-icons"> format_italic </span>
-      <span class="material-icons"> format_underlined </span>
-      <span class="material-icons"> format_align_left </span>
-      <span class="material-icons"> format_align_justify </span>
-      <span class="material-icons"> format_align_right </span>
+      <span class="material-icons bold"> format_bold </span>
+      <span class="material-icons italics"> format_italic </span>
+      <span class="material-icons underline"> format_underlined </span>
+      <span class="left material-icons alignment"> format_align_left </span>
+      <span class="center material-icons alignment">
+        format_align_justify
+      </span>
+      <span class="right material-icons alignment"> format_align_right </span>
+      <label>
+        <!--TODO : add css to position color picker properly-->
+        <span class="material-icons"> format_color_text </span>
+        <input hidden type="color" class="font-color-input" />
+      </label>
+      <label>
+        <!--TODO : add css to position color picker properly-->
+        <span class="material-icons"> format_color_fill </span>
+        <input hidden type="color" class="bg-color-input" />
+      </label>
     </div>
     <div class="formula-actions-container">
       <input type="text" class="cell-address-input" readonly />
@@ -64,6 +77,7 @@
         <div class="sheet-folder">Sheet 1</div>
       </div>
     </div>
-    <script src="./script.js"></script>
+    <script src="./grid.js"></script>
+    <script src="./cell-properties.js"></script>
   </body>
 </html>

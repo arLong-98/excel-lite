@@ -36,6 +36,10 @@ const ADDRESS_BAR = document.querySelector(".cell-address-input");
     rowCont.setAttribute("class", "cell-row-container");
     for (let j = 0; j < COLUMNS; j++) {
       const dataCell = createNamingCell(null, "cell");
+      // adding below data attributes to identify cells easily
+      dataCell.dataset.row = i;
+      dataCell.dataset.col = j;
+      dataCell.contentEditable = true; // This makes the cell editable
       addAddressListener(dataCell, i, j);
       rowCont.appendChild(dataCell);
     }
@@ -57,10 +61,17 @@ function createNamingCell(text, className) {
 
 function addAddressListener(cell, i, j) {
   // this listener is attached to each cell, so that the cell address gets filled up
-  //when ever
+  //when ever we select a cell
   cell.addEventListener("click", function () {
     const rowId = i + 1;
     const colId = COLUMN_NAME_STRING.charAt(j);
     ADDRESS_BAR.value = `${rowId} ${colId}`;
   });
 }
+
+(function autoClickFirstCell() {
+  //auto-click first cell via DOM
+  const firstCell = document.querySelector(".cell");
+  firstCell.click();
+  firstCell.focus();
+})();

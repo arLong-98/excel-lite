@@ -22,11 +22,18 @@ body {
 
 .cell-props-actions-container {
   height: 3rem;
-  background-color: azure;
+  background-color: #a8dadc;
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 0.5rem;
+}
+
+.bold,
+.italics,
+.underline,
+.alignment {
+  cursor: pointer;
 }
 
 .font-family-prop,
