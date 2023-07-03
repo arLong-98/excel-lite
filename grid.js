@@ -3,6 +3,7 @@ const COLUMNS = 26;
 const COLUMN_NAME_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 const ADDRESS_BAR = document.querySelector(".cell-address-input");
+const formulaBar = document.querySelector(".formula-input");
 
 (function fillAddressCols() {
   const addressColumnContainer = document.querySelector(
@@ -65,7 +66,7 @@ function addAddressListener(cell, i, j) {
   cell.addEventListener("click", function () {
     const rowId = i + 1;
     const colId = COLUMN_NAME_STRING.charAt(j);
-    ADDRESS_BAR.value = `${rowId} ${colId}`;
+    ADDRESS_BAR.value = `${rowId}${colId}`;
   });
 }
 

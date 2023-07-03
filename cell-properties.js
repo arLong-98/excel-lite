@@ -14,6 +14,9 @@ for (let i = 0; i < ROWS; i++) {
       fontFamily: "monospace",
       fontSize: "14",
       fontColor: "#000000",
+      value: "",
+      formula: "",
+      children: [],
     };
     sheetRow.push(cellProp);
   }
@@ -138,6 +141,7 @@ function addListenerToAttachCellProperties(cell) {
     fontFamily.value = cellPropObj.fontFamily;
     bgColor.value = cellPropObj.backgroundColor;
     bgColor.parentElement.style.color = cellPropObj.backgroundColor;
+    formulaBar.value = cellPropObj.formula;
 
     const alignValue = cellPropObj.alignment;
     switch (alignValue) {
@@ -163,6 +167,17 @@ function addListenerToAttachCellProperties(cell) {
 function getActiveCell() {
   const cellAddressElement = document.querySelector(".cell-address-input");
   const cellValue = cellAddressElement.value;
+
+  const [rowId, colId] = decodeRID_CID(cellValue);
+  const activeCell = document.querySelector(
+    `[data-row="${rowId}"][data-col="${colId}"]`
+  );
+
+  const cellPropObj = sheetDB[rowId][colId];
+  return { node: activeCell, cellPropObj };
+}
+
+function getRequestedCell(cellValue) {
   const [rowId, colId] = decodeRID_CID(cellValue);
   const activeCell = document.querySelector(
     `[data-row="${rowId}"][data-col="${colId}"]`
@@ -172,7 +187,7 @@ function getActiveCell() {
 }
 
 function decodeRID_CID(cellValue) {
-  const [rowValue, colValue] = cellValue.split(" ");
+  const [rowValue, colValue] = cellValue.split("");
   const rowId = parseInt(rowValue - 1, 10);
   const colId = COLUMN_NAME_STRING.indexOf(colValue);
 
