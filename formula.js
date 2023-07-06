@@ -37,6 +37,17 @@ formulaBar.addEventListener("keydown", (e) => {
       //child relation
       removeChildFromParent(cellPropObj.formula);
     }
+
+    addChildToGraphComponent(formula, address);
+    // check formula is cyclic or not before evaluating, so our application does not break because of a cyclic formula
+
+    const isCyclic = isGraphCyclic(graphComponentMatrix);
+    if (isCyclic) {
+      alert("your formula is cyclic");
+      //if cycle is formed, we wuill remove the above established p-c relation from graph component matrix
+      removeChildFromGraphComponent(formula, address);
+      return;
+    }
     const evaluatedValue = evaluateFormula(formula);
     //update this evaluated value in the cell UI and in cell object in sheetDB
     setCellUIAndPropObj(address, evaluatedValue, formula); //update current active cell value on formula update
@@ -44,6 +55,30 @@ formulaBar.addEventListener("keydown", (e) => {
     updateChildrenCellValues(address); //this line updates current active cell's childrens' evaluated values
   }
 });
+
+function addChildToGraphComponent(formula, childAddress) {
+  //we will get parent address from formula, and we will update it with child address in graph component matrix
+  const [rId, cId] = decodeRID_CID(childAddress);
+  const encodedFormula = formula.split(" ");
+  for (let i = 0; i < encodedFormula.length; i++) {
+    let asciiValue = encodedFormula[i].charCodeAt(1);
+    if (asciiValue >= 65 && asciiValue <= 90) {
+      let [parentRowId, parentColId] = decodeRID_CID(encodedFormula[i]);
+      graphComponentMatrix[parentRowId][parentColId].push([rId, cId]);
+    }
+  }
+}
+
+function removeChildFromGraphComponent(formula, childAddress) {
+  const encodedFormula = formula.split(" ");
+  for (let i = 0; i < encodedFormula.length; i++) {
+    let asciiValue = encodedFormula[i].charCodeAt(1);
+    if (asciiValue >= 65 && asciiValue <= 90) {
+      let [parentRowId, parentColId] = decodeRID_CID(encodedFormula[i]);
+      graphComponentMatrix[parentRowId][parentColId].pop(); //remove last added child
+    }
+  }
+}
 
 function evaluateFormula(formula) {
   //eval is used to evaluate expressions such as 10+20
@@ -104,16 +139,14 @@ function removeChildFromParent(formula) {
 }
 
 function updateChildrenCellValues(parentAddress) {
-  const { node, cellPropObj: parentCellPropObj } =
-    getRequestedCell(parentAddress);
+  const { cellPropObj: parentCellPropObj } = getRequestedCell(parentAddress);
 
   const children = parentCellPropObj.children;
 
   //this is a recursive function
   for (let i = 0; i < children.length; i++) {
     let childAddress = children[i];
-    let { node: childNode, cellPropObj: childPropObj } =
-      getRequestedCell(childAddress);
+    let { cellPropObj: childPropObj } = getRequestedCell(childAddress);
 
     let childFormula = childPropObj.formula;
     let evaluatedValue = evaluateFormula(childFormula);
