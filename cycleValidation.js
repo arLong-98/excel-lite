@@ -3,16 +3,6 @@
 //   .fill("")
 //   .map(() => new Array(COLUMNS).fill(new Array()));
 
-let graphComponentMatrix = [];
-
-for (let i = 0; i < ROWS; i++) {
-  let rowArray = [];
-  for (let j = 0; j < COLUMNS; j++) {
-    rowArray.push([]);
-  }
-  graphComponentMatrix.push(rowArray);
-}
-
 // return true if cycle, else false if not cyclic
 function isGraphCyclic(matrix) {
   const visited = [];

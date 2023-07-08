@@ -1,28 +1,3 @@
-//cell property storage data structure
-
-const sheetDB = [];
-
-for (let i = 0; i < ROWS; i++) {
-  const sheetRow = [];
-  for (let j = 0; j < COLUMNS; j++) {
-    const cellProp = {
-      bold: false,
-      italics: false,
-      underline: false,
-      alignment: "left",
-      backgroundColor: "#ffffff",
-      fontFamily: "monospace",
-      fontSize: "14",
-      fontColor: "#000000",
-      value: "",
-      formula: "",
-      children: [],
-    };
-    sheetRow.push(cellProp);
-  }
-  sheetDB.push(sheetRow);
-}
-
 // selectors for cell properties
 
 const bold = document.querySelector(".bold");
@@ -116,7 +91,7 @@ function setPropertyCtaState(node, cellPropValue) {
   node.style.backgroundColor = cellPropValue ? "#d1d8e0" : "transparent";
 }
 
-// use sheetDB to reflect the styles attached to a particular cell on the property container with bold, italics etc ctas.
+// use ACTIVE_SHEET to reflect the styles attached to a particular cell on the property container with bold, italics etc ctas.
 
 let allCells = document.querySelectorAll(".cell");
 
@@ -131,7 +106,7 @@ function addListenerToAttachCellProperties(cell) {
     const rowId = cell.dataset.row,
       colId = cell.dataset.col;
 
-    const cellPropObj = sheetDB[rowId][colId];
+    const cellPropObj = ACTIVE_SHEET[rowId][colId];
     setPropertyCtaState(bold, cellPropObj.bold);
     setPropertyCtaState(italics, cellPropObj.italics);
     setPropertyCtaState(underline, cellPropObj.underline);
@@ -142,6 +117,8 @@ function addListenerToAttachCellProperties(cell) {
     bgColor.value = cellPropObj.backgroundColor;
     bgColor.parentElement.style.color = cellPropObj.backgroundColor;
     formulaBar.value = cellPropObj.formula;
+    cell.innerText = cellPropObj.value;
+    cell.style.backgroundColor = cellPropObj.backgroundColor;
 
     const alignValue = cellPropObj.alignment;
     switch (alignValue) {
@@ -173,7 +150,7 @@ function getActiveCell() {
     `[data-row="${rowId}"][data-col="${colId}"]`
   );
 
-  const cellPropObj = sheetDB[rowId][colId];
+  const cellPropObj = ACTIVE_SHEET[rowId][colId];
   return { node: activeCell, cellPropObj };
 }
 
@@ -182,7 +159,7 @@ function getRequestedCell(cellValue) {
   const activeCell = document.querySelector(
     `[data-row="${rowId}"][data-col="${colId}"]`
   );
-  const cellPropObj = sheetDB[rowId][colId];
+  const cellPropObj = ACTIVE_SHEET[rowId][colId];
   return { node: activeCell, cellPropObj };
 }
 

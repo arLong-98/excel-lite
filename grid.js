@@ -48,6 +48,8 @@ const formulaBar = document.querySelector(".formula-input");
   }
 })();
 
+autoClickFirstCell();
+
 function createNamingCell(text, className) {
   const nameDiv = document.createElement("div");
   if (className) {
@@ -70,9 +72,9 @@ function addAddressListener(cell, i, j) {
   });
 }
 
-(function autoClickFirstCell() {
+function autoClickFirstCell() {
   //auto-click first cell via DOM
   const firstCell = document.querySelector(".cell");
   firstCell.click();
   firstCell.focus();
-})();
+}

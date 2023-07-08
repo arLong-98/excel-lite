@@ -165,3 +165,20 @@ body {
   width: 8rem;
   height: 2rem;
 }
+
+.sheets-folder-container {
+  overflow: auto;
+}
+
+.add-sheet-btn {
+  cursor: pointer;
+}
+
+.sheet-folder {
+  width: fit-content;
+  white-space: nowrap;
+}
+
+.active-sheet-folder {
+  background-color: gray;
+}

@@ -1,6 +1,6 @@
 allCells.forEach((cell) => {
   cell.addEventListener("blur", (e) => {
-    //this stores the value of cell in its respective cellPropObject inside sheetDB matrix
+    //this stores the value of cell in its respective cellPropObject inside ACTIVE_SHEET matrix
     const currentAddress = ADDRESS_BAR.value;
     const { node, cellPropObj } = getActiveCell();
     const cellData = node.innerText;
@@ -41,14 +41,17 @@ formulaBar.addEventListener("keydown", async function (e) {
     addChildToGraphComponent(formula, address);
     // check formula is cyclic or not before evaluating, so our application does not break because of a cyclic formula
 
-    const cycleResponse = isGraphCyclic(graphComponentMatrix);
+    const cycleResponse = isGraphCyclic(ACTIVE_GRAPH_COMPONENT_MATRIX);
     if (cycleResponse) {
       let response = confirm(
         "Your formula is cyclic. Do you want to trace your path?"
       );
       while (response) {
         // keep on tracking color until user cancels
-        await isGraphCyclicTracePath(graphComponentMatrix, cycleResponse);
+        await isGraphCyclicTracePath(
+          ACTIVE_GRAPH_COMPONENT_MATRIX,
+          cycleResponse
+        );
         response = confirm(
           "Your formula is cyclic. Do you want to trace your path?"
         );
@@ -58,7 +61,7 @@ formulaBar.addEventListener("keydown", async function (e) {
       return;
     }
     const evaluatedValue = evaluateFormula(formula);
-    //update this evaluated value in the cell UI and in cell object in sheetDB
+    //update this evaluated value in the cell UI and in cell object in ACTIVE_SHEET
     setCellUIAndPropObj(address, evaluatedValue, formula); //update current active cell value on formula update
     addChildToParent(formula); //
     updateChildrenCellValues(address); //this line updates current active cell's childrens' evaluated values
@@ -73,7 +76,7 @@ function addChildToGraphComponent(formula, childAddress) {
     let asciiValue = encodedFormula[i].charCodeAt(1);
     if (asciiValue >= 65 && asciiValue <= 90) {
       let [parentRowId, parentColId] = decodeRID_CID(encodedFormula[i]);
-      graphComponentMatrix[parentRowId][parentColId].push([rId, cId]);
+      ACTIVE_GRAPH_COMPONENT_MATRIX[parentRowId][parentColId].push([rId, cId]);
     }
   }
 }
@@ -84,7 +87,7 @@ function removeChildFromGraphComponent(formula, childAddress) {
     let asciiValue = encodedFormula[i].charCodeAt(1);
     if (asciiValue >= 65 && asciiValue <= 90) {
       let [parentRowId, parentColId] = decodeRID_CID(encodedFormula[i]);
-      graphComponentMatrix[parentRowId][parentColId].pop(); //remove last added child
+      ACTIVE_GRAPH_COMPONENT_MATRIX[parentRowId][parentColId].pop(); //remove last added child
     }
   }
 }
@@ -116,7 +119,7 @@ function setCellUIAndPropObj(address, evaluatedValue, formula) {
 
 function getCellValue(cellAddress) {
   const [rowId, colId] = decodeRID_CID(cellAddress);
-  const cellPropObj = sheetDB[rowId][colId];
+  const cellPropObj = ACTIVE_SHEET[rowId][colId];
   return cellPropObj.value;
 }
 
