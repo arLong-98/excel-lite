@@ -18,7 +18,7 @@ allCells.forEach((cell) => {
 
 // two types of formulas, normal and dependency expression
 
-formulaBar.addEventListener("keydown", (e) => {
+formulaBar.addEventListener("keydown", async function (e) {
   const formula = formulaBar.value.trim();
 
   /**
@@ -41,9 +41,18 @@ formulaBar.addEventListener("keydown", (e) => {
     addChildToGraphComponent(formula, address);
     // check formula is cyclic or not before evaluating, so our application does not break because of a cyclic formula
 
-    const isCyclic = isGraphCyclic(graphComponentMatrix);
-    if (isCyclic) {
-      alert("your formula is cyclic");
+    const cycleResponse = isGraphCyclic(graphComponentMatrix);
+    if (cycleResponse) {
+      let response = confirm(
+        "Your formula is cyclic. Do you want to trace your path?"
+      );
+      while (response) {
+        // keep on tracking color until user cancels
+        await isGraphCyclicTracePath(graphComponentMatrix, cycleResponse);
+        response = confirm(
+          "Your formula is cyclic. Do you want to trace your path?"
+        );
+      }
       //if cycle is formed, we wuill remove the above established p-c relation from graph component matrix
       removeChildFromGraphComponent(formula, address);
       return;

@@ -33,11 +33,15 @@ function isGraphCyclic(matrix) {
   for (let i = 0; i < ROWS; i++) {
     for (let j = 0; j < COLUMNS; j++) {
       const response = detectCycleDFS(matrix, visited, dfsVisited, i, j);
-      if (response) return true;
+      if (response) {
+        //return the cell where cyclic formula was detected
+        //this will help is path tracing
+        return [i, j];
+      }
     }
   }
 
-  return false;
+  return null;
 }
 
 //start -> vis = true, dfsVis = true;
