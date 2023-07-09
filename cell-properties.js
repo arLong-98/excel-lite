@@ -101,12 +101,13 @@ for (let i = 0; i < allCells.length; i++) {
 
 function addListenerToAttachCellProperties(cell) {
   // this functions adds active styles styles to the property ctas as per the selected cell
-  // we select a cell, this function runs an onClick listener that updates bold, italics, etc cta state in the property tool bar above
+  // we select a cell, this function adds an onClick listener that updates bold, italics, etc cta state in the property tool bar above
   cell.addEventListener("click", (e) => {
     const rowId = cell.dataset.row,
       colId = cell.dataset.col;
 
     const cellPropObj = ACTIVE_SHEET[rowId][colId];
+    //bind tool bar ui state with current clicked cell
     setPropertyCtaState(bold, cellPropObj.bold);
     setPropertyCtaState(italics, cellPropObj.italics);
     setPropertyCtaState(underline, cellPropObj.underline);
@@ -117,8 +118,15 @@ function addListenerToAttachCellProperties(cell) {
     bgColor.value = cellPropObj.backgroundColor;
     bgColor.parentElement.style.color = cellPropObj.backgroundColor;
     formulaBar.value = cellPropObj.formula;
+
+    // bind cell styles with cellpropobj
     cell.innerText = cellPropObj.value;
     cell.style.backgroundColor = cellPropObj.backgroundColor;
+    cell.style.textAlign = cellPropObj.alignment;
+    cell.style.fontWeight = cellPropObj.bold ? "bold" : "normal";
+    cell.style.fontStyle = cellPropObj.italics ? "italic" : "normal";
+    cell.style.textDecoration = cellPropObj.underline ? "underline" : "none";
+    cell.style.fontSize = `${cellPropObj.fontSize}px`;
 
     const alignValue = cellPropObj.alignment;
     switch (alignValue) {
@@ -164,7 +172,9 @@ function getRequestedCell(cellValue) {
 }
 
 function decodeRID_CID(cellValue) {
-  const [rowValue, colValue] = cellValue.split("");
+  // cell address come in the form of 1A - 100Z, we need to get 0 based row, col from this
+  const colValue = cellValue.charAt(cellValue.length - 1);
+  const rowValue = cellValue.substring(0, cellValue.length - 1);
   const rowId = parseInt(rowValue - 1, 10);
   const colId = COLUMN_NAME_STRING.indexOf(colValue);
 
