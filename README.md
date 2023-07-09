@@ -17,6 +17,7 @@ Tech Stack
 - Implemented a **sheet management** script that allows us to *add* and *remove* sheets with synchronous storage.
 - Download your sheet as a json file or upload a json file and use it as a sheet,
    implemented using **fileReader** webApi.
+- Cut, copy and paste cell data alongwith style updates.
 
 ### Problems faced/Learnings
 - Creating a scrollable grid with a fixed address column and row - 🚀CSS Position, z-index and scroll.🧑‍💻
