@@ -127,6 +127,7 @@ function addListenerToAttachCellProperties(cell) {
     cell.style.fontStyle = cellPropObj.italics ? "italic" : "normal";
     cell.style.textDecoration = cellPropObj.underline ? "underline" : "none";
     cell.style.fontSize = `${cellPropObj.fontSize}px`;
+    cell.style.color = cellPropObj.fontColor;
 
     const alignValue = cellPropObj.alignment;
     switch (alignValue) {
