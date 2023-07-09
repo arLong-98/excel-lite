@@ -164,6 +164,11 @@ body {
   border: 1px solid black;
   width: 8rem;
   height: 2rem;
+  outline: none;
+}
+
+.selected-cell {
+  border: 3px solid #218c74;
 }
 
 .sheets-folder-container {
