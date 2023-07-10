@@ -25,6 +25,7 @@ addSheetButton.addEventListener("click", (e) => {
   }</div>`;
 
   sheetsFolderContainer.appendChild(sheet);
+  sheet.scrollIntoView(); // scroll the latest added sheet into view
 
   createSheetDB();
   createGraphComponentMatrix();

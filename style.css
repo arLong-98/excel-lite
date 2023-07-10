@@ -187,3 +187,7 @@ body {
 .active-sheet-folder {
   background-color: gray;
 }
+
+.download-btn {
+  cursor: pointer;
+}
