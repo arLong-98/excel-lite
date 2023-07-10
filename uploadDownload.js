@@ -17,7 +17,6 @@ downloadBtn.addEventListener("click", (e) => {
 uploadBtn.addEventListener("change", function (e) {
   const fileList = this.files;
   const uploadedFile = fileList[0];
-  console.log(fileList);
   const fileReader = new FileReader();
   fileReader.readAsText(uploadedFile);
   fileReader.onload = function () {
