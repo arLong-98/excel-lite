@@ -9,9 +9,11 @@ downloadBtn.addEventListener("click", (e) => {
 
   const file = new Blob([jsonData], { type: "application/json" });
   const anchorEle = document.createElement("a");
-  anchorEle.href = URL.createObjectURL(file);
+  const fileUrl = URL.createObjectURL(file);
+  anchorEle.href = fileUrl;
   anchorEle.download = "SheetData.json";
   anchorEle.click();
+  URL.revokeObjectURL(fileUrl);
 });
 
 uploadBtn.addEventListener("change", function (e) {
