@@ -19,6 +19,10 @@ Tech Stack
    implemented using **fileReader** webApi.
 - Cut, copy and paste cell data alongwith style updates.
 
+### Pending 🧑‍💻
+- Mobile UI
+- Input validations and error ui
+
 ### Problems faced/Learnings
 - Creating a scrollable grid with a fixed address column and row - 🚀CSS Position, z-index and scroll.🧑‍💻
 - Adding various properties such as bold, italics, font styles, background color etc for each cell and maintaining a data layer to keep the ui in sync.
